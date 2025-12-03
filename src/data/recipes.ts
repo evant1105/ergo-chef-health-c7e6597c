@@ -9,7 +9,7 @@ export const recipes: Recipe[] = [
     time: "15 min",
     servings: 2,
     calories: 280,
-    imageUrl: "https://hoqspsbrlhscploirkky.supabase.co/storage/v1/object/public/image1//GarlicButterShrimp.jpg",
+    imageUrl: "https://hoqspsbrlhscploirkky.supabase.co/storage/v1/object/public/image1//download.jpg",
     steps: [
       "Prep shrimp by removing shells and deveining",
       "Melt butter in a large skillet over medium-high heat",
@@ -82,7 +82,7 @@ export const recipes: Recipe[] = [
     time: "45 min",
     servings: 4,
     calories: 420,
-    imageUrl: "https://hoqspsbrlhscploirkky.supabase.co/storage/v1/object/public/image1//85389-gourmet-mushroom-risotto-DDMFS-4x3-a8a80a8deb064c6a8f15452b808a0258.jpg",
+    imageUrl: "https://hoqspsbrlhscploirkky.supabase.co/storage/v1/object/public/image1//85389-gourmet-mushroom-risotto-DDMFS-4x3-a8a80a8deb064c6a8f15452b808a0258.jpg"
     steps: [
       "Heat broth in a saucepan, keep warm",
       "Sauté mushrooms until golden, set aside",
@@ -101,7 +101,7 @@ export const recipes: Recipe[] = [
     time: "15 min",
     servings: 2,
     calories: 180,
-    imageUrl:"https://hoqspsbrlhscploirkky.supabase.co/storage/v1/object/public/image1//greek-salad-1-1200x1477.webp".
+    imageUrl:"https://hoqspsbrlhscploirkky.supabase.co/storage/v1/object/public/image1//greek-salad-1-1200x1477.webp"
     steps: [
       "Chop cucumber, tomatoes, and red onion",
       "Add kalamata olives and bell pepper",

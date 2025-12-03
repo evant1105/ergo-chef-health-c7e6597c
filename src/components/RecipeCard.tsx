@@ -9,6 +9,7 @@ export interface Recipe {
   time: string;
   servings: number;
   calories: number;
+  imageUrl?: string;
   steps: string[];
 }
 
@@ -26,8 +27,16 @@ const RecipeCard = ({ recipe, onStartCooking }: RecipeCardProps) => {
 
   return (
     <div className="bg-card rounded-2xl overflow-hidden shadow-sm border border-border animate-fade-in">
-      <div className="h-48 bg-recipe-card flex items-center justify-center">
-        <ChefHat className="text-primary/30" size={80} />
+      <div className="h-48 bg-recipe-card flex items-center justify-center overflow-hidden">
+        {recipe.imageUrl ? (
+          <img 
+            src={recipe.imageUrl} 
+            alt={recipe.title}
+            className="w-full h-full object-cover"
+          />
+        ) : (
+          <ChefHat className="text-primary/30" size={80} />
+        )}
       </div>
       
       <div className="p-5">

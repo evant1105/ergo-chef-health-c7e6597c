@@ -27,7 +27,6 @@ export const recipes: Recipe[] = [
     time: "25 min",
     servings: 4,
     calories: 350,
-    imageUrl: "https://hoqspsbrlhscploirkky.supabase.co/storage/v1/object/public/image1/Screenshot%202025-12-03%20091249.png",
     steps: [
       "Cut chicken breast into bite-sized pieces",
       "Prep vegetables: bell peppers, broccoli, snap peas",

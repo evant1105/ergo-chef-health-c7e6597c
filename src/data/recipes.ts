@@ -9,7 +9,7 @@ export const recipes: Recipe[] = [
     time: "15 min",
     servings: 2,
     calories: 280,
-    imageUrl: "https://hoqspsbrlhscploirkky.supabase.co/storage/v1/object/public/image1/Screenshot%202025-12-03%20091249.png",
+    imageUrl: "https://hoqspsbrlhscploirkky.supabase.co/storage/v1/object/public/image1//download.jpg",
     steps: [
       "Prep shrimp by removing shells and deveining",
       "Melt butter in a large skillet over medium-high heat",
@@ -27,6 +27,7 @@ export const recipes: Recipe[] = [
     time: "25 min",
     servings: 4,
     calories: 350,
+    imageUrl: "https://hoqspsbrlhscploirkky.supabase.co/storage/v1/object/public/image1//download-2.jpg",
     steps: [
       "Cut chicken breast into bite-sized pieces",
       "Prep vegetables: bell peppers, broccoli, snap peas",
@@ -45,6 +46,7 @@ export const recipes: Recipe[] = [
     time: "10 min",
     servings: 2,
     calories: 220,
+    imageUrl: "https://hoqspsbrlhscploirkky.supabase.co/storage/v1/object/public/image1//download-3.jpg",
     steps: [
       "Slice fresh mozzarella and ripe tomatoes",
       "Arrange alternately on a plate",
@@ -62,6 +64,7 @@ export const recipes: Recipe[] = [
     time: "20 min",
     servings: 4,
     calories: 380,
+    imageUrl: "https://hoqspsbrlhscploirkky.supabase.co/storage/v1/object/public/image1//download-4.jpg",
     steps: [
       "Brown ground beef in a skillet",
       "Add taco seasoning and water, simmer",
@@ -79,6 +82,7 @@ export const recipes: Recipe[] = [
     time: "45 min",
     servings: 4,
     calories: 420,
+    imageUrl: "https://hoqspsbrlhscploirkky.supabase.co/storage/v1/object/public/image1//85389-gourmet-mushroom-risotto-DDMFS-4x3-a8a80a8deb064c6a8f15452b808a0258.jpg"
     steps: [
       "Heat broth in a saucepan, keep warm",
       "Sauté mushrooms until golden, set aside",
@@ -97,6 +101,7 @@ export const recipes: Recipe[] = [
     time: "15 min",
     servings: 2,
     calories: 180,
+    imageUrl:"https://hoqspsbrlhscploirkky.supabase.co/storage/v1/object/public/image1//greek-salad-1-1200x1477.webp"
     steps: [
       "Chop cucumber, tomatoes, and red onion",
       "Add kalamata olives and bell pepper",

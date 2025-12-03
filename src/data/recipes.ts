@@ -9,7 +9,7 @@ export const recipes: Recipe[] = [
     time: "15 min",
     servings: 2,
     calories: 280,
-    imageUrl: "https://hoqspsbrlhscploirkky.supabase.co/storage/v1/object/public/image1/download.jpg",
+    imageUrl: "https://hoqspsbrlhscploirkky.supabase.co/storage/v1/object/public/image1/GarlicButterShrimp.jpg",
     steps: [
       "Prep shrimp by removing shells and deveining",
       "Melt butter in a large skillet over medium-high heat",

@@ -1,4 +1,10 @@
 import { Recipe } from "@/components/RecipeCard";
+import garlicButterShrimp from "@/assets/recipes/garlic-butter-shrimp.jpg";
+import chickenStirFry from "@/assets/recipes/chicken-stir-fry.jpg";
+import capreseSalad from "@/assets/recipes/caprese-salad.jpg";
+import beefTacos from "@/assets/recipes/beef-tacos.jpg";
+import mushroomRisotto from "@/assets/recipes/mushroom-risotto.jpg";
+import greekSalad from "@/assets/recipes/greek-salad.jpg";
 
 export const recipes: Recipe[] = [
   {
@@ -9,7 +15,7 @@ export const recipes: Recipe[] = [
     time: "15 min",
     servings: 2,
     calories: 280,
-    imageUrl: "https://hoqspsbrlhscploirkky.supabase.co/storage/v1/object/public/image1/GarlicButterShrimp.jpg",
+    imageUrl: garlicButterShrimp,
     steps: [
       "Prep shrimp by removing shells and deveining",
       "Melt butter in a large skillet over medium-high heat",
@@ -27,7 +33,7 @@ export const recipes: Recipe[] = [
     time: "25 min",
     servings: 4,
     calories: 350,
-    imageUrl: "https://hoqspsbrlhscploirkky.supabase.co/storage/v1/object/public/image1/download-2.jpg",
+    imageUrl: chickenStirFry,
     steps: [
       "Cut chicken breast into bite-sized pieces",
       "Prep vegetables: bell peppers, broccoli, snap peas",
@@ -46,7 +52,7 @@ export const recipes: Recipe[] = [
     time: "10 min",
     servings: 2,
     calories: 220,
-    imageUrl: "https://hoqspsbrlhscploirkky.supabase.co/storage/v1/object/public/image1/download-3.jpg",
+    imageUrl: capreseSalad,
     steps: [
       "Slice fresh mozzarella and ripe tomatoes",
       "Arrange alternately on a plate",
@@ -64,7 +70,7 @@ export const recipes: Recipe[] = [
     time: "20 min",
     servings: 4,
     calories: 380,
-    imageUrl: "https://hoqspsbrlhscploirkky.supabase.co/storage/v1/object/public/image1/download-4.jpg",
+    imageUrl: beefTacos,
     steps: [
       "Brown ground beef in a skillet",
       "Add taco seasoning and water, simmer",
@@ -82,7 +88,7 @@ export const recipes: Recipe[] = [
     time: "45 min",
     servings: 4,
     calories: 420,
-    imageUrl: "https://hoqspsbrlhscploirkky.supabase.co/storage/v1/object/public/image1/85389-gourmet-mushroom-risotto-DDMFS-4x3-a8a80a8deb064c6a8f15452b808a0258.jpg",
+    imageUrl: mushroomRisotto,
     steps: [
       "Heat broth in a saucepan, keep warm",
       "Sauté mushrooms until golden, set aside",
@@ -101,7 +107,7 @@ export const recipes: Recipe[] = [
     time: "15 min",
     servings: 2,
     calories: 180,
-    imageUrl:"https://hoqspsbrlhscploirkky.supabase.co/storage/v1/object/public/image1/greek-salad-1-1200x1477.webp",
+    imageUrl: greekSalad,
     steps: [
       "Chop cucumber, tomatoes, and red onion",
       "Add kalamata olives and bell pepper",

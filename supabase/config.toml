@@ -1,1 +1,7 @@
 project_id = "hoqspsbrlhscploirkky"
+
+[functions.cooking-assistant]
+verify_jwt = false
+
+[functions.posture-analysis]
+verify_jwt = false

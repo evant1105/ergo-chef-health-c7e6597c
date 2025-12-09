@@ -379,12 +379,6 @@ const Posture = () => {
             <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
               <Sparkles className="text-primary" size={20} />
             </div>
-            <div>
-              <h3 className="font-semibold text-foreground">Demo: AI Posture Advice Examples</h3>
-              <p className="text-sm text-muted-foreground">
-                Preview what AI posture feedback looks like for different posture statuses. Select a status below to see personalized ergonomic advice.
-              </p>
-            </div>
           </div>
 
           <div className="flex gap-2 mb-6 flex-wrap">

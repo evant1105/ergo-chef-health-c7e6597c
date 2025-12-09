@@ -14,12 +14,13 @@ interface PostureAnalysis {
 }
 
 const Posture = () => {
+  // State for camera and analysis
   const [cameraActive, setCameraActive] = useState(false);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [countdown, setCountdown] = useState<number | null>(null);
   const [analysis, setAnalysis] = useState<PostureAnalysis | null>(null);
-  const [demoStatus, setDemoStatus] = useState<PostureStatus>("good");
   
+  // Refs for media elements
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const streamRef = useRef<MediaStream | null>(null);
@@ -91,8 +92,6 @@ const Posture = () => {
       return null;
     }
     
-    console.log("Capturing frame - video dimensions:", video.videoWidth, "x", video.videoHeight);
-    
     if (video.videoWidth === 0 || video.videoHeight === 0) {
       console.error("Video has no dimensions yet");
       return null;
@@ -102,15 +101,12 @@ const Posture = () => {
     canvas.height = video.videoHeight;
     ctx.drawImage(video, 0, 0);
     
-    const dataUrl = canvas.toDataURL('image/jpeg', 0.8);
-    console.log("Frame captured, data URL length:", dataUrl.length);
-    
-    return dataUrl;
+    return canvas.toDataURL('image/jpeg', 0.8);
   }, []);
 
   const analyzePosture = async () => {
     setIsAnalyzing(true);
-    setCountdown(5); // Timer set to 5 seconds
+    setCountdown(5); // 5 seconds timer
     setAnalysis(null);
     
     toast.info("Hold your cooking position for 5 seconds...");
@@ -146,8 +142,6 @@ const Posture = () => {
             }
           );
           
-          console.log("Response status:", response.status);
-
           if (!response.ok) {
             const errorData = await response.json();
             throw new Error(errorData.error || 'Analysis failed');
@@ -192,10 +186,23 @@ const Posture = () => {
     };
   }, []);
 
+  const getAnalysisStatusInfo = (status: PostureStatus) => {
+    switch (status) {
+      case "good":
+        return { icon: CheckCircle, color: "text-success", bg: "bg-success/10" };
+      case "warning":
+        return { icon: AlertTriangle, color: "text-warning", bg: "bg-warning/10" };
+      case "poor":
+        return { icon: XCircle, color: "text-destructive", bg: "bg-destructive/10" };
+      default:
+        return null;
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background p-6">
       <div className="max-w-3xl mx-auto space-y-6">
-        {/* Real Camera Section */}
+        {/* Camera Section */}
         <div className="bg-card rounded-2xl shadow-sm border border-border p-6">
           <h2 className="text-xl font-semibold text-foreground mb-2">Posture Monitoring</h2>
           <p className="text-muted-foreground mb-6">
@@ -326,55 +333,6 @@ const Posture = () => {
             })()}
           </div>
         )}
-
-        {/* Demo Section */}
-        <div className="bg-card rounded-2xl shadow-sm border border-border p-6">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
-              <Sparkles className="text-primary" size={20} />
-            </div>
-          </div>
-
-          <div className="flex gap-2 mb-6 flex-wrap">
-            <Button
-              variant={demoStatus === "good" ? "default" : "outline"}
-              size="sm"
-              onClick={() => setDemoStatus("good")}
-              className={demoStatus === "good" ? "bg-foreground text-background" : ""}
-            >
-              <CheckCircle size={14} className="mr-1" />
-              Good Posture
-            </Button>
-            <Button
-              variant={demoStatus === "warning" ? "default" : "outline"}
-              size="sm"
-              onClick={() => setDemoStatus("warning")}
-              className={demoStatus === "warning" ? "bg-foreground text-background" : ""}
-            >
-              <AlertTriangle size={14} className="mr-1" />
-              Needs Improvement
-            </Button>
-            <Button
-              variant={demoStatus === "poor" ? "default" : "outline"}
-              size="sm"
-              onClick={() => setDemoStatus("poor")}
-              className={demoStatus === "poor" ? "bg-foreground text-background" : ""}
-            >
-              <XCircle size={14} className="mr-1" />
-              Poor Posture
-            </Button>
-          </div>
-
-          {statusInfo && (
-            <div className={`rounded-xl p-4 ${statusInfo.bg} animate-fade-in`}>
-              <div className="flex items-center gap-2 mb-2">
-                <statusInfo.icon className={statusInfo.color} size={20} />
-                <h4 className={`font-semibold ${statusInfo.color}`}>{statusInfo.title}</h4>
-              </div>
-              <p className="text-foreground text-sm">{statusInfo.message}</p>
-            </div>
-          )}
-        </div>
       </div>
     </div>
   );

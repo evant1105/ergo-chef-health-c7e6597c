@@ -240,11 +240,12 @@ const Posture = () => {
                 )}
               </div>
               
-              <div className="flex gap-2 justify-center">
+              {/* RESPONSIVE BUTTONS FIX: flex-col on mobile, flex-row on desktop */}
+              <div className="flex flex-col sm:flex-row gap-3 justify-center mt-4 w-full">
                 <Button
                   onClick={analyzePosture}
                   disabled={isAnalyzing}
-                  className="bg-primary text-primary-foreground hover:bg-primary/90"
+                  className="bg-primary text-primary-foreground hover:bg-primary/90 w-full sm:w-auto"
                 >
                   {isAnalyzing ? (
                     <>
@@ -258,7 +259,11 @@ const Posture = () => {
                     </>
                   )}
                 </Button>
-                <Button variant="outline" onClick={stopCamera}>
+                <Button 
+                  variant="outline" 
+                  onClick={stopCamera}
+                  className="w-full sm:w-auto"
+                >
                   <VideoOff size={16} className="mr-2" />
                   Stop Camera
                 </Button>
@@ -273,7 +278,7 @@ const Posture = () => {
                 </p>
                 <Button
                   onClick={startCamera}
-                  className="bg-foreground text-background hover:bg-foreground/90"
+                  className="bg-foreground text-background hover:bg-foreground/90 w-full sm:w-auto"
                 >
                   <Video size={16} className="mr-2" />
                   Start Camera

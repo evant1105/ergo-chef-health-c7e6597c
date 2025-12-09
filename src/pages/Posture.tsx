@@ -53,6 +53,9 @@ const Posture = () => {
             toast.error("Could not start video playback");
           });
         };
+      } else {
+        console.error("Video ref is null despite being rendered");
+        toast.error("Internal error: Video element not found");
       }
     } catch (error) {
       console.error("Camera error:", error);
@@ -107,10 +110,10 @@ const Posture = () => {
 
   const analyzePosture = async () => {
     setIsAnalyzing(true);
-    setCountdown(10);
+    setCountdown(5); // CHANGED: Reduced from 10 to 5 seconds
     setAnalysis(null);
     
-    toast.info("Hold your cooking position for 10 seconds...");
+    toast.info("Hold your cooking position for 5 seconds...");
   };
 
   useEffect(() => {
@@ -210,222 +213,4 @@ const Posture = () => {
       case "poor":
         return {
           icon: XCircle,
-          color: "text-destructive",
-          bg: "bg-destructive/10",
-          title: "Poor Posture Detected",
-          message: "Significant posture issues detected. Please take a break and stretch. Focus on: straightening your spine, pulling shoulders back, and lifting your chin. Consider using a footrest or anti-fatigue mat."
-        };
-      default:
-        return null;
-    }
-  };
-
-  const statusInfo = demoStatus ? getStatusInfo(demoStatus) : null;
-
-  const getAnalysisStatusInfo = (status: PostureStatus) => {
-    switch (status) {
-      case "good":
-        return { icon: CheckCircle, color: "text-success", bg: "bg-success/10" };
-      case "warning":
-        return { icon: AlertTriangle, color: "text-warning", bg: "bg-warning/10" };
-      case "poor":
-        return { icon: XCircle, color: "text-destructive", bg: "bg-destructive/10" };
-      default:
-        return null;
-    }
-  };
-
-  return (
-    <div className="min-h-screen bg-background p-6">
-      <div className="max-w-3xl mx-auto space-y-6">
-        {/* Real Camera Section */}
-        <div className="bg-card rounded-2xl shadow-sm border border-border p-6">
-          <h2 className="text-xl font-semibold text-foreground mb-2">Posture Monitoring</h2>
-          <p className="text-muted-foreground mb-6">
-            Keep your back straight and shoulders relaxed while cooking. Get AI-powered ergonomic advice.
-          </p>
-
-          <div className="bg-secondary rounded-xl p-4 flex flex-col items-center justify-center min-h-[300px]">
-            {cameraActive ? (
-              <div className="w-full">
-                <div className="relative w-full aspect-video bg-muted rounded-lg overflow-hidden mb-4">
-                  <video
-                    ref={videoRef}
-                    autoPlay
-                    playsInline
-                    muted
-                    className="w-full h-full object-cover"
-                  />
-                  <canvas ref={canvasRef} className="hidden" />
-                  
-                  {countdown !== null && countdown > 0 && (
-                    <div className="absolute inset-0 flex items-center justify-center bg-black/50">
-                      <div className="text-6xl font-bold text-white animate-pulse">
-                        {countdown}
-                      </div>
-                    </div>
-                  )}
-                  
-                  {isAnalyzing && countdown === 0 && (
-                    <div className="absolute inset-0 flex items-center justify-center bg-black/50">
-                      <div className="flex flex-col items-center gap-2 text-white">
-                        <Loader2 className="animate-spin" size={48} />
-                        <span>Analyzing posture...</span>
-                      </div>
-                    </div>
-                  )}
-                </div>
-                
-                <div className="flex gap-2 justify-center">
-                  <Button
-                    onClick={analyzePosture}
-                    disabled={isAnalyzing}
-                    className="bg-primary text-primary-foreground hover:bg-primary/90"
-                  >
-                    {isAnalyzing ? (
-                      <>
-                        <Loader2 size={16} className="mr-2 animate-spin" />
-                        Analyzing...
-                      </>
-                    ) : (
-                      <>
-                        <Sparkles size={16} className="mr-2" />
-                        Analyze Posture (10s scan)
-                      </>
-                    )}
-                  </Button>
-                  <Button variant="outline" onClick={stopCamera}>
-                    <VideoOff size={16} className="mr-2" />
-                    Stop Camera
-                  </Button>
-                </div>
-              </div>
-            ) : (
-              <>
-                <Camera className="text-muted-foreground mb-4" size={48} />
-                <p className="text-muted-foreground mb-4 text-center">
-                  Start your camera to monitor your posture while cooking
-                </p>
-                <Button
-                  onClick={startCamera}
-                  className="bg-foreground text-background hover:bg-foreground/90"
-                >
-                  <Video size={16} className="mr-2" />
-                  Start Camera
-                </Button>
-              </>
-            )}
-          </div>
-        </div>
-
-        {/* AI Analysis Results */}
-        {analysis && (
-          <div className="bg-card rounded-2xl shadow-sm border border-border p-6 animate-fade-in">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
-                <Sparkles className="text-primary" size={20} />
-              </div>
-              <div>
-                <h3 className="font-semibold text-foreground">AI Posture Analysis</h3>
-                <p className="text-sm text-muted-foreground">Real-time feedback from your scan</p>
-              </div>
-            </div>
-
-            {(() => {
-              const info = getAnalysisStatusInfo(analysis.status);
-              if (!info) return null;
-              return (
-                <div className={`rounded-xl p-4 ${info.bg} mb-4`}>
-                  <div className="flex items-center gap-2 mb-2">
-                    <info.icon className={info.color} size={20} />
-                    <h4 className={`font-semibold ${info.color}`}>{analysis.title}</h4>
-                  </div>
-                  <p className="text-foreground text-sm mb-4">{analysis.message}</p>
-                  
-                  {analysis.observations.length > 0 && (
-                    <div className="mb-3">
-                      <h5 className="text-sm font-medium text-foreground mb-2">Observations:</h5>
-                      <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
-                        {analysis.observations.map((obs, i) => (
-                          <li key={i}>{obs}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-                  
-                  {analysis.recommendations.length > 0 && (
-                    <div>
-                      <h5 className="text-sm font-medium text-foreground mb-2">Recommendations:</h5>
-                      <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
-                        {analysis.recommendations.map((rec, i) => (
-                          <li key={i}>{rec}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-                </div>
-              );
-            })()}
-          </div>
-        )}
-
-        {/* Demo Section */}
-        <div className="bg-card rounded-2xl shadow-sm border border-border p-6">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
-              <Sparkles className="text-primary" size={20} />
-            </div>
-            <div>
-              <h3 className="font-semibold text-foreground">Demo: AI Posture Advice Examples</h3>
-              <p className="text-sm text-muted-foreground">
-                Preview what AI posture feedback looks like for different posture statuses. Select a status below to see personalized ergonomic advice.
-              </p>
-            </div>
-          </div>
-
-          <div className="flex gap-2 mb-6 flex-wrap">
-            <Button
-              variant={demoStatus === "good" ? "default" : "outline"}
-              size="sm"
-              onClick={() => setDemoStatus("good")}
-              className={demoStatus === "good" ? "bg-foreground text-background" : ""}
-            >
-              <CheckCircle size={14} className="mr-1" />
-              Good Posture
-            </Button>
-            <Button
-              variant={demoStatus === "warning" ? "default" : "outline"}
-              size="sm"
-              onClick={() => setDemoStatus("warning")}
-              className={demoStatus === "warning" ? "bg-foreground text-background" : ""}
-            >
-              <AlertTriangle size={14} className="mr-1" />
-              Needs Improvement
-            </Button>
-            <Button
-              variant={demoStatus === "poor" ? "default" : "outline"}
-              size="sm"
-              onClick={() => setDemoStatus("poor")}
-              className={demoStatus === "poor" ? "bg-foreground text-background" : ""}
-            >
-              <XCircle size={14} className="mr-1" />
-              Poor Posture
-            </Button>
-          </div>
-
-          {statusInfo && (
-            <div className={`rounded-xl p-4 ${statusInfo.bg} animate-fade-in`}>
-              <div className="flex items-center gap-2 mb-2">
-                <statusInfo.icon className={statusInfo.color} size={20} />
-                <h4 className={`font-semibold ${statusInfo.color}`}>{statusInfo.title}</h4>
-              </div>
-              <p className="text-foreground text-sm">{statusInfo.message}</p>
-            </div>
-          )}
-        </div>
-      </div>
-    </div>
-  );
-};
-
-export default Posture;
+          color: "

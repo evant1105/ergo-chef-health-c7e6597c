@@ -192,52 +192,6 @@ const Posture = () => {
     };
   }, []);
 
-  const getStatusInfo = (status: PostureStatus) => {
-    switch (status) {
-      case "good":
-        return {
-          icon: CheckCircle,
-          color: "text-success",
-          bg: "bg-success/10",
-          title: "Great Posture!",
-          message: "You're maintaining excellent posture. Keep your shoulders relaxed and back straight. Your spine alignment is optimal for comfortable cooking."
-        };
-      case "warning":
-        return {
-          icon: AlertTriangle,
-          color: "text-warning",
-          bg: "bg-warning/10",
-          title: "Needs Improvement",
-          message: "Your shoulders appear slightly hunched. Try rolling them back and engaging your core. Consider adjusting your countertop height if you're bending forward frequently."
-        };
-      case "poor":
-        return {
-          icon: XCircle,
-          color: "text-destructive",
-          bg: "bg-destructive/10",
-          title: "Poor Posture Detected",
-          message: "Significant posture issues detected. Please take a break and stretch. Focus on: straightening your spine, pulling shoulders back, and lifting your chin. Consider using a footrest or anti-fatigue mat."
-        };
-      default:
-        return null;
-    }
-  };
-
-  const statusInfo = demoStatus ? getStatusInfo(demoStatus) : null;
-
-  const getAnalysisStatusInfo = (status: PostureStatus) => {
-    switch (status) {
-      case "good":
-        return { icon: CheckCircle, color: "text-success", bg: "bg-success/10" };
-      case "warning":
-        return { icon: AlertTriangle, color: "text-warning", bg: "bg-warning/10" };
-      case "poor":
-        return { icon: XCircle, color: "text-destructive", bg: "bg-destructive/10" };
-      default:
-        return null;
-    }
-  };
-
   return (
     <div className="min-h-screen bg-background p-6">
       <div className="max-w-3xl mx-auto space-y-6">

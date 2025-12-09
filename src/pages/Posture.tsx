@@ -26,6 +26,7 @@ const Posture = () => {
 
   const startCamera = async () => {
     try {
+      console.log("Requesting camera access...");
       const stream = await navigator.mediaDevices.getUserMedia({ 
         video: { 
           facingMode: "user",
@@ -34,11 +35,24 @@ const Posture = () => {
         } 
       });
       
+      console.log("Camera stream obtained:", stream.getTracks());
+      streamRef.current = stream;
+      
       if (videoRef.current) {
         videoRef.current.srcObject = stream;
-        streamRef.current = stream;
-        setCameraActive(true);
-        toast.success("Camera started! Position yourself and click 'Analyze Posture'");
+        
+        // Wait for video to be ready before showing
+        videoRef.current.onloadedmetadata = () => {
+          console.log("Video metadata loaded, playing...");
+          videoRef.current?.play().then(() => {
+            console.log("Video playing successfully");
+            setCameraActive(true);
+            toast.success("Camera started! Position yourself and click 'Analyze Posture'");
+          }).catch(err => {
+            console.error("Video play error:", err);
+            toast.error("Could not start video playback");
+          });
+        };
       }
     } catch (error) {
       console.error("Camera error:", error);
@@ -60,19 +74,35 @@ const Posture = () => {
   };
 
   const captureFrame = useCallback((): string | null => {
-    if (!videoRef.current || !canvasRef.current) return null;
+    if (!videoRef.current || !canvasRef.current) {
+      console.error("Video or canvas ref not available");
+      return null;
+    }
     
     const video = videoRef.current;
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
     
-    if (!ctx) return null;
+    if (!ctx) {
+      console.error("Could not get canvas context");
+      return null;
+    }
+    
+    console.log("Capturing frame - video dimensions:", video.videoWidth, "x", video.videoHeight);
+    
+    if (video.videoWidth === 0 || video.videoHeight === 0) {
+      console.error("Video has no dimensions yet");
+      return null;
+    }
     
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
     ctx.drawImage(video, 0, 0);
     
-    return canvas.toDataURL('image/jpeg', 0.8);
+    const dataUrl = canvas.toDataURL('image/jpeg', 0.8);
+    console.log("Frame captured, data URL length:", dataUrl.length);
+    
+    return dataUrl;
   }, []);
 
   const analyzePosture = async () => {
@@ -100,6 +130,7 @@ const Posture = () => {
       // Send to AI for analysis
       const analyze = async () => {
         try {
+          console.log("Sending image to posture analysis API...");
           const response = await fetch(
             `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/posture-analysis`,
             {
@@ -111,6 +142,8 @@ const Posture = () => {
               body: JSON.stringify({ imageBase64 }),
             }
           );
+          
+          console.log("Response status:", response.status);
 
           if (!response.ok) {
             const errorData = await response.json();

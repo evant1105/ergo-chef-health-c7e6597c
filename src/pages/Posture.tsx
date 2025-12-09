@@ -14,13 +14,11 @@ interface PostureAnalysis {
 }
 
 const Posture = () => {
-  // State for camera and analysis
   const [cameraActive, setCameraActive] = useState(false);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [countdown, setCountdown] = useState<number | null>(null);
   const [analysis, setAnalysis] = useState<PostureAnalysis | null>(null);
   
-  // Refs for media elements
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const streamRef = useRef<MediaStream | null>(null);
@@ -240,12 +238,12 @@ const Posture = () => {
                 )}
               </div>
               
-              {/* RESPONSIVE BUTTONS FIX: flex-col on mobile, flex-row on desktop */}
-              <div className="flex flex-col sm:flex-row gap-3 justify-center mt-4 w-full">
+              {/* BUTTONS LAYOUT FIXED: Always stacked (flex-col) for better mobile experience */}
+              <div className="flex flex-col gap-3 justify-center mt-4 w-full">
                 <Button
                   onClick={analyzePosture}
                   disabled={isAnalyzing}
-                  className="bg-primary text-primary-foreground hover:bg-primary/90 w-full sm:w-auto"
+                  className="bg-primary text-primary-foreground hover:bg-primary/90 w-full"
                 >
                   {isAnalyzing ? (
                     <>
@@ -262,7 +260,7 @@ const Posture = () => {
                 <Button 
                   variant="outline" 
                   onClick={stopCamera}
-                  className="w-full sm:w-auto"
+                  className="w-full"
                 >
                   <VideoOff size={16} className="mr-2" />
                   Stop Camera
